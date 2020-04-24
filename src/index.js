@@ -3,17 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { Provider } from 'react-redux';
-import configureStore from './store/configureStore';
+import { ApolloProvider } from '@apollo/react-hooks';
+import { client } from './client/index';
 
 import 'antd/dist/antd.css';
 
-const store = configureStore();
-
 ReactDOM.render(
-  <Provider store={store}>
+  <ApolloProvider client={client}>
     <App />
-  </Provider>,
+  </ApolloProvider>,
   document.getElementById('root')
 );
 

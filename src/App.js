@@ -2,8 +2,24 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Button } from 'antd';
+import { useQuery } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
+
+const GET_BOOKS = gql`
+  {
+    books {
+      title
+      author
+    }
+  }
+`;
 
 function App() {
+  const { loading, error, data } = useQuery(GET_BOOKS);
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+  const { books } = data
+  console.log(data, books)
   return (
     <div className="App">
       <header className="App-header">
@@ -20,6 +36,11 @@ function App() {
         >
           Learn React
         </a>
+        <b>{ books[0].title }</b>
+        <b>{ books[0].author }</b>
+        <br />
+        <b>{ books[1].title }</b>
+        <b>{ books[1].author }</b>
       </header>
     </div>
   );
